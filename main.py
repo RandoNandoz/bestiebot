@@ -81,10 +81,10 @@ def record_comment(comment: praw.models.Comment, startup_time: float):
         # see if the comment has replied to a comment
         if isinstance(comment.parent(), praw.models.Comment):
             # get parent comment's author
-            parent_author = comment.parent().author.name
 
             # check if the author is not None
-            if parent_author is not None:
+            if comment.parent().author is not None:
+                parent_author = comment.parent().author.name
                 # check if parent in besties of author
                 if parent_author not in collection.find_one({'commenter': author})['besties']:
                     # add parent to besties of author
