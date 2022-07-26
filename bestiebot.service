@@ -1,0 +1,15 @@
+[Unit]
+Description=Bestiebot
+After=multi-user.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/bestiebot.env
+ExecStart=/usr/bin/python3 /opt/bestiebot/bestiebot.py
+User=randy
+WorkingDirectory=/opt/bestiebot
+Restart=always
+RestartSec=1s
+
+[Install]
+WantedBy=multi-user.target
