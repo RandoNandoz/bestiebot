@@ -22,7 +22,7 @@ reddit = praw.Reddit(
 )
 
 
-def get_all_besties(user: str) -> dict[str, int]:
+def get_all_besties(user: str):
     """
     Function to get the db_best of a user.
     :param user: The user to get the db_best of.
