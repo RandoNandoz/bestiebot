@@ -96,13 +96,12 @@ def record_comment(comment: praw.models.Comment, startup_time: float):
                     print(f'Incremented {parent_author} count for {author}')
 
 
-# noinspection GrazieInspection
 def handle_comment(comment: praw.models.Comment, startup_time: float):
     """
     Function to handle responses to comment that comes in via stream.
     :param startup_time: Time the bot was started.
     :param comment: A reddit comment from the stream.
-    :return: None
+    :return None
     """
 
     # first, check if the comment is newer than the bot startup time.
@@ -110,11 +109,11 @@ def handle_comment(comment: praw.models.Comment, startup_time: float):
         # check if created by a user
         if comment.author is None:
             return
-        # get the author of the comment.
-        author: str = comment.author.name
 
         # !my_bestie command
         if '!my_bestie' in comment.body.lower():
+            # get the author of the comment.
+            author: str = comment.author.name
             # log the command execution
             print(f'Responding to comment by: {author}, body: {comment.body}')
             try:
@@ -127,9 +126,9 @@ def handle_comment(comment: praw.models.Comment, startup_time: float):
                 for i in range(3):
                     try:
                         bestie = all_besties.popitem()
+                        top_besties[bestie[0]] = bestie[1]
                     except Exception as e:
                         print(f'Error: {e}')
-                    top_besties[bestie[0]] = bestie[1]
 
                 # create the response
                 response = f'{author}, your top besties are:\n\n'
@@ -149,10 +148,10 @@ def handle_comment(comment: praw.models.Comment, startup_time: float):
             except Exception as e:
                 print(f'Error: {e}')
         elif '!their_bestie(' in comment.body.lower():
-            # log the command execution
-            print(f'Responding to comment by: {author}, body: {comment.body}')
             # get user mentioned in command:
             user = comment.body.lower().split('!their_bestie(')[1].split(')')[0]
+            # log the command execution
+            print(f'Responding to comment by: {user}, body: {comment.body}')
             # get the db_best of the user
             try:
                 all_besties = get_all_besties(user)
